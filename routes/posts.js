@@ -25,7 +25,6 @@ router
         title: req.body.title,
         content: req.body.content,
       };
-
       posts.push(post);
       res.json(posts[posts.length - 1]);
     } else next(error(400, "Insufficient Data"));
@@ -76,5 +75,17 @@ router
     if (post) res.json(post);
     else next();
   });
+  //to acces with string interpulation we dont need to passit
+  //we use req.query.
+  //127.0.0.1:3000/api/posts?userId=2&api-key=perscholas
+  router.get(`/`,(req,res)=>{
+    const userId=req.query.userId;
+    const post=posts.filter((p)=>{p.userId==userId})
+  if(post){
+    res.json(post)
+  }else{
+    next();
+  }
+  })
 
 module.exports = router;

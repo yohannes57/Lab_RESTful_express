@@ -113,6 +113,8 @@ app.use((err, req, res, next) => {
   res.json({ error: err.message });
 });
 
+
+//listen the server at aport port
 app.listen(port, () => {
   console.log(`Server listening on port: ${port}.`);
 });
