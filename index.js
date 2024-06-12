@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 
 const users = require("./routes/users.js");
 const posts = require("./routes/posts.js");
+const commentsRouter = require("./routes/comments.js");
 
 const error = require("./utilities/error.js");
 
@@ -12,6 +13,7 @@ const port = 3000;
 // Parsing Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.json());
 
 // Logging Middlewaare
 app.use((req, res, next) => {
@@ -53,6 +55,7 @@ app.use("/api", function (req, res, next) {
 // Use our Routes
 app.use("/api/users", users);
 app.use("/api/posts", posts);
+app.use("/api/comments", commentsRouter);
 
 // Adding some HATEOAS links.
 app.get("/", (req, res) => {
@@ -112,7 +115,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({ error: err.message });
 });
-
 
 //listen the server at aport port
 app.listen(port, () => {
